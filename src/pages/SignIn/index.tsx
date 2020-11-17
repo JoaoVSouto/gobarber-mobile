@@ -1,9 +1,11 @@
 import React from 'react';
 import { Image } from 'react-native';
 
-import { Container, Title } from './styles';
+import { Button, Input } from '../../components';
 
 import logoImg from '../../assets/logo.png';
+
+import { Container, Title } from './styles';
 
 const SignIn: React.FC = () => {
   return (
@@ -11,6 +13,12 @@ const SignIn: React.FC = () => {
       <Image source={logoImg} />
 
       <Title>Faça seu login</Title>
+
+      <Input />
+
+      <Input />
+
+      <Button>Entrar</Button>
     </Container>
   );
 };
