@@ -7,6 +7,7 @@ import {
   ScrollView,
   Keyboard,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 
 import { Button, Input } from '../../components';
@@ -21,6 +22,8 @@ import {
 } from './styles';
 
 const SignUp: React.FC = () => {
+  const navigation = useNavigation();
+
   const [isKeyboardOff, setIsKeyboardOff] = useState(true);
 
   useEffect(() => {
@@ -68,7 +71,7 @@ const SignUp: React.FC = () => {
       </KeyboardAvoidingView>
 
       {isKeyboardOff && (
-        <BackToSignInButton>
+        <BackToSignInButton onPress={() => navigation.goBack()}>
           <Icon name="arrow-left" size={20} color="#fff" />
           <BackToSignInButtonText>Voltar para o login</BackToSignInButtonText>
         </BackToSignInButton>
