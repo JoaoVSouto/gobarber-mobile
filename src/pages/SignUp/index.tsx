@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Image,
   View,
@@ -8,6 +8,8 @@ import {
   Keyboard,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Form } from '@unform/mobile';
+import { FormHandles } from '@unform/core';
 import Icon from 'react-native-vector-icons/Feather';
 
 import { Button, Input } from '../../components';
@@ -24,6 +26,8 @@ import {
 const SignUp: React.FC = () => {
   const navigation = useNavigation();
 
+  const formRef = useRef<FormHandles>(null);
+
   const [isKeyboardOff, setIsKeyboardOff] = useState(true);
 
   useEffect(() => {
@@ -39,6 +43,10 @@ const SignUp: React.FC = () => {
       Keyboard.removeSubscription(keyboardDidShowSub);
       Keyboard.removeSubscription(keyboardDidHideSub);
     };
+  }, []);
+
+  const handleSignUp = useCallback(data => {
+    console.log(data);
   }, []);
 
   return (
@@ -59,13 +67,25 @@ const SignUp: React.FC = () => {
               <Title>Crie sua conta</Title>
             </View>
 
-            <Input name="name" icon="user" placeholder="Nome" />
+            <Form
+              ref={formRef}
+              onSubmit={handleSignUp}
+              style={{ width: '100%' }}
+            >
+              <Input name="name" icon="user" placeholder="Nome" />
 
-            <Input name="email" icon="mail" placeholder="E-mail" />
+              <Input name="email" icon="mail" placeholder="E-mail" />
 
-            <Input name="password" icon="lock" placeholder="Senha" />
+              <Input name="password" icon="lock" placeholder="Senha" />
 
-            <Button>Cadastrar</Button>
+              <Button
+                onPress={() => {
+                  formRef.current?.submitForm();
+                }}
+              >
+                Cadastrar
+              </Button>
+            </Form>
           </Container>
         </ScrollView>
       </KeyboardAvoidingView>
