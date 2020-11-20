@@ -6,6 +6,7 @@ import {
   Platform,
   ScrollView,
   Keyboard,
+  TextInput,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
@@ -29,6 +30,7 @@ const SignIn: React.FC = () => {
   const navigation = useNavigation();
 
   const formRef = useRef<FormHandles>(null);
+  const passwordInputRef = useRef<TextInput>(null);
 
   const [isKeyboardOff, setIsKeyboardOff] = useState(true);
 
@@ -49,6 +51,10 @@ const SignIn: React.FC = () => {
 
   const handleSignIn = useCallback(data => {
     console.log(data);
+  }, []);
+
+  const submitForm = useCallback(() => {
+    formRef.current?.submitForm();
   }, []);
 
   return (
@@ -74,17 +80,30 @@ const SignIn: React.FC = () => {
               onSubmit={handleSignIn}
               style={{ width: '100%' }}
             >
-              <Input name="email" icon="mail" placeholder="E-mail" />
-
-              <Input name="password" icon="lock" placeholder="Senha" />
-
-              <Button
-                onPress={() => {
-                  formRef.current?.submitForm();
+              <Input
+                name="email"
+                icon="mail"
+                placeholder="E-mail"
+                keyboardType="email-address"
+                autoCorrect={false}
+                autoCapitalize="none"
+                returnKeyType="next"
+                onSubmitEditing={() => {
+                  passwordInputRef.current?.focus();
                 }}
-              >
-                Entrar
-              </Button>
+              />
+
+              <Input
+                ref={passwordInputRef}
+                name="password"
+                icon="lock"
+                placeholder="Senha"
+                secureTextEntry
+                returnKeyType="send"
+                onSubmitEditing={submitForm}
+              />
+
+              <Button onPress={submitForm}>Entrar</Button>
             </Form>
 
             <ForgotPassword>
