@@ -3,13 +3,14 @@ import { useNavigation } from '@react-navigation/native';
 
 import { useAuth } from '../../hooks/auth';
 
+import { UserImage } from '../../components';
+
 import {
   Container,
   Header,
   HeaderTitle,
   Username,
   ProfileButton,
-  UserAvatar,
 } from './styles';
 
 const Dashboard: React.FC = () => {
@@ -30,7 +31,7 @@ const Dashboard: React.FC = () => {
         </HeaderTitle>
 
         <ProfileButton onPress={navigateToProfile}>
-          <UserAvatar source={{ uri: user.avatar_url }} />
+          <UserImage url={user.avatar_url} alt={user.name} />
         </ProfileButton>
       </Header>
     </Container>
