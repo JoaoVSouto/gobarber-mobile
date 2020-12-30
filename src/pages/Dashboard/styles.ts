@@ -1,6 +1,8 @@
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
-import { Platform } from 'react-native';
+import { Platform, FlatList } from 'react-native';
 import styled from 'styled-components/native';
+
+import { Provider } from '.';
 
 export const Container = styled.View`
   flex: 1;
@@ -29,3 +31,5 @@ export const Username = styled.Text`
 `;
 
 export const ProfileButton = styled.TouchableOpacity``;
+
+export const ProvidersList = styled(FlatList as new () => FlatList<Provider>)``;
