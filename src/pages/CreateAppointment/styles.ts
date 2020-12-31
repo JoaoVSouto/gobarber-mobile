@@ -35,6 +35,8 @@ export const HeaderTitle = styled.Text`
   font-family: 'RobotoSlab-Medium';
 `;
 
+export const Content = styled.ScrollView``;
+
 export const ProvidersListContainer = styled.View``;
 
 export const ProvidersList = styled(FlatList as new () => FlatList<Provider>)`
@@ -79,4 +81,38 @@ export const OpenDatePickerButtonText = styled.Text`
   font-family: 'RobotoSlab-Medium';
   color: #232129;
   font-size: 16px;
+`;
+
+export const Schedule = styled.View`
+  padding: 40px 0 16px;
+`;
+
+export const Section = styled.View`
+  margin-bottom: 24px;
+`;
+
+export const SectionTitle = styled.Text`
+  font-size: 14px;
+  color: #999591;
+  font-family: 'RobotoSlab-Medium';
+  margin: 0 24px 12px;
+`;
+
+export const SectionContent = styled.ScrollView.attrs({
+  contentContainerStyle: { paddingHorizontal: 24 },
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+})``;
+
+export const Hour = styled.View`
+  padding: 12px;
+  background-color: #3e3b47;
+  border-radius: 10px;
+  margin-right: 8px;
+`;
+
+export const HourText = styled.Text`
+  color: #f4ede8;
+  font-family: 'RobotoSlab-Medium';
+  font-size: 14px;
 `;
