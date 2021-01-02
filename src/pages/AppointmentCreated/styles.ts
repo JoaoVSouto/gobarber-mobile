@@ -23,7 +23,6 @@ export const Description = styled.Text`
   font-family: 'RobotoSlab-Medium';
   font-size: 14px;
   text-align: center;
-  max-width: 265px;
   margin-top: 16px;
 `;
 

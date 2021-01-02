@@ -1,6 +1,11 @@
-import React, { useCallback } from 'react';
-import { useNavigation } from '@react-navigation/native';
+/* eslint-disable import/no-duplicates */
+import React, { useCallback, useMemo } from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { format } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 import Icon from 'react-native-vector-icons/Feather';
+
+import capitalize from '../../utils/capitalize';
 
 import {
   Container,
@@ -10,8 +15,16 @@ import {
   OkButtonText,
 } from './styles';
 
+interface RouteParams {
+  date: number;
+  providerName: string;
+}
+
 const AppointmentCreated: React.FC = () => {
   const navigation = useNavigation();
+
+  const { params } = useRoute();
+  const routeParams = params as RouteParams;
 
   const handleOkPressed = useCallback(() => {
     navigation.reset({
@@ -24,13 +37,26 @@ const AppointmentCreated: React.FC = () => {
     });
   }, [navigation]);
 
+  const formattedDate = useMemo(
+    () =>
+      capitalize(
+        format(
+          routeParams.date,
+          "EEEE', dia' dd 'de' MMMM 'de' yyyy 'às' HH:mm'h'",
+          { locale: ptBR },
+        ),
+      ),
+    [routeParams.date],
+  );
+
   return (
     <Container>
       <Icon name="check" size={80} color="#04D361" />
 
       <Title>Agendamento concluído</Title>
       <Description>
-        Terça, dia 14 de março de 2020 às 12:00h com Diego Fernandes
+        {formattedDate} {'\n'}
+        com {routeParams.providerName}
       </Description>
 
       <OkButton onPress={handleOkPressed}>
